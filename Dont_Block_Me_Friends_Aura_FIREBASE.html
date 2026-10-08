@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<title>Don't Block Me</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&family=Nunito:wght@700;800;900&display=swap');
+:root{--ink:#30333e;--blue:#69b8ee;--blue2:#3f9ddd;--pink:#ff759f;--yellow:#ffe36a}
+*{box-sizing:border-box}html,body{margin:0;min-height:100%;font-family:Nunito,Arial,sans-serif;color:var(--ink)}
+body{overflow-x:hidden;background:linear-gradient(180deg,#8bcdf7 0%,#bde6ff 52%,#e9f8ff 100%)}
+.sky{position:fixed;inset:0;overflow:hidden;z-index:-2;background:linear-gradient(180deg,#83c9f5,#dff4ff)}
+.cloud{position:absolute;width:190px;height:65px;border-radius:60px;background:rgba(255,255,255,.56);filter:blur(.4px);animation:cloud linear infinite}
+.cloud:before,.cloud:after{content:"";position:absolute;background:inherit;border-radius:50%}.cloud:before{width:85px;height:85px;left:25px;top:-40px}.cloud:after{width:105px;height:105px;right:15px;top:-52px}
+.c1{top:10%;left:-220px;animation-duration:38s}.c2{top:30%;left:-250px;animation-duration:47s;animation-delay:-17s;transform:scale(.7)}.c3{top:56%;left:-250px;animation-duration:43s;animation-delay:-9s;transform:scale(1.05)}.c4{top:78%;left:-280px;animation-duration:51s;animation-delay:-28s;transform:scale(.62)}
+@keyframes cloud{to{left:115vw}}
+.wrap{width:min(100%,520px);margin:auto;padding:12px 16px 25px;min-height:100vh}
+.top{height:42px;display:flex;justify-content:flex-end;align-items:center}.sound{border:0;background:transparent;font-size:25px;cursor:pointer}
+.page{display:none}.page.active{display:block}
+.hero{text-align:center;padding-top:6px}.logo{width:min(92%,350px);height:auto;display:block;margin:0 auto 8px;filter:drop-shadow(0 5px 0 rgba(59,112,150,.16))}
+.bubble{position:relative;width:min(94%,400px);margin:24px auto 9px;background:#fff;border:4px solid #6ba8da;border-radius:50%;padding:32px 25px 37px;font-family:'Baloo 2';font-size:30px;font-weight:900;line-height:1.02;box-shadow:0 8px 0 #b3dcf7}
+.bubble:after{content:"";position:absolute;right:23%;bottom:-30px;border-width:27px 12px 0 30px;border-style:solid;border-color:#6ba8da transparent transparent transparent;transform:rotate(19deg)}
+.bubble b{color:var(--pink)}
+.doodle{width:190px;height:165px;object-fit:contain;display:block;margin:0 28px 10px auto;animation:bob 2.8s ease-in-out infinite;filter:drop-shadow(0 9px 4px rgba(52,105,140,.18))}
+@keyframes bob{50%{transform:translateY(-10px) rotate(1deg)}}
+.card{position:relative;background:#fffdf7;border:4px solid #65a9df;border-radius:30px;padding:35px 27px 28px;box-shadow:0 12px 0 rgba(104,172,226,.55),0 25px 40px rgba(39,100,143,.13)}
+.tape{position:absolute;left:48px;top:-18px;width:110px;height:37px;border-radius:4px;background:rgba(255,168,190,.78);transform:rotate(-6deg)}
+.card h1{font-family:'Baloo 2';font-size:39px;line-height:1;margin:0;text-align:center;font-weight:900}.card h1 span{color:var(--pink)}
+.card p{text-align:center;color:#6e7d90;font-size:16px;font-weight:800;margin:9px 0 18px}
+.btn{width:100%;border:0;border-radius:18px;padding:16px 14px;font:900 18px Nunito;cursor:pointer;margin-top:10px}.primary{color:#fff;background:linear-gradient(#31b0ff,#128ce6);box-shadow:0 7px 0 #0875c5}.secondary{background:#edf7ff;color:#3379a9}
+.back{width:45px;height:45px;border:0;border-radius:14px;background:#fff;color:#2678b8;font-size:31px;box-shadow:0 6px 16px rgba(46,112,158,.16);margin-bottom:12px}.center{text-align:center}.field{width:100%;padding:16px 17px;border:3px solid #7ab8e8;border-radius:20px;font:800 18px Nunito;outline:0;background:#fff}.count{text-align:right;color:#8b98a7;font-size:12px;margin-top:4px}
+.qbox{background:rgba(255,255,255,.9);border:4px solid #fff;border-radius:29px;padding:10px;box-shadow:0 15px 34px rgba(39,102,145,.16)}
+.nums{display:flex;gap:6px;overflow:auto;background:#fff;border-radius:17px;padding:7px}.num{min-width:41px;height:41px;border:1px solid #dbe8f2;border-radius:12px;background:#fff;font:900 16px Nunito}.num.active{background:#1799ef;color:#fff;box-shadow:0 4px 0 #0875c5}
+.qdoodle{height:145px;width:180px;object-fit:contain;display:block;margin:4px auto -3px;animation:bob 2.5s ease-in-out infinite}.tag{display:table;margin:0 auto 10px;padding:6px 17px;background:var(--yellow);border-radius:8px;box-shadow:0 4px 0 #ddc344;font:900 17px 'Baloo 2'}.question{text-align:center;font:900 28px/1.08 'Baloo 2';margin:0 4px 16px}.question b{color:var(--pink)}
+.options{display:grid;grid-template-columns:1fr 1fr;gap:10px}.opt{position:relative;border:3px solid #a7cef0;background:#fff;border-radius:22px;padding:6px;box-shadow:0 5px 0 #cfe7fa;cursor:pointer}.opt.selected{border-color:var(--pink);box-shadow:0 5px 0 #ffb5c9}.opt img{width:100%;height:150px;display:block;object-fit:cover;border-radius:16px}.opt span{display:block;text-align:center;font:900 16px/1.05 'Baloo 2';padding:7px 2px 3px}.tick{display:none!important;position:absolute!important;right:7px;top:7px;width:28px;height:28px;border-radius:50%;background:var(--pink);color:#fff!important;place-items:center}.selected .tick{display:grid!important}
+.results h2{font:900 40px/1 'Baloo 2';text-align:center}.rank{display:flex;align-items:center;gap:8px;background:#fff;border-radius:20px;padding:10px;margin:9px 0;box-shadow:0 7px 17px rgba(40,100,145,.1)}.medal{width:28px}.ava{width:52px;height:52px;border-radius:50%;background:#eaf6ff;display:grid;place-items:center;font-size:30px}.ri{flex:1}.rn{font-weight:900}.barbg{height:9px;border-radius:20px;background:#ffe0ea;overflow:hidden;margin-top:6px}.bar{height:100%;background:#ff6597}.score{font-weight:900;color:#ff5f95}.foot{text-align:center;color:#607d99;font-size:12px;font-weight:900;padding:25px 0 8px}.foot a{color:#e84f88;text-decoration:none}.toast{position:fixed;left:50%;bottom:18px;transform:translate(-50%,20px);opacity:0;background:#20283a;color:#fff;padding:11px 16px;border-radius:13px;font-weight:800;transition:.2s;z-index:20}.toast.show{opacity:1;transform:translate(-50%,0)}
+@media(max-width:390px){.bubble{font-size:27px}.card h1{font-size:35px}.qdoodle{height:125px}.opt img{height:130px}}
+</style>
+</head>
+<body>
+<div class="sky"><i class="cloud c1"></i><i class="cloud c2"></i><i class="cloud c3"></i><i class="cloud c4"></i></div>
+<main class="wrap">
+<header class="top"><button class="sound" id="sound">🔊</button></header>
+<section id="home" class="page active">
+  <div class="hero">
+    <img class="logo" src="https://block.youtest.me/static/assets/img/logo-f.webp" alt="Don't Block Me">
+    <div class="bubble">i will find &amp; <b>block</b><br>my fake friends</div>
+    <img id="heroDoodle" class="doodle" src="https://block.youtest.me/static/assets/img/doodles/doodle-10.svg" alt="">
+  </div>
+  <div class="card"><div class="tape"></div>
+    <h1>i will <span>block</span> you?</h1>
+    <p>let's see how well your friends know you</p>
+    <button class="btn primary" id="createBtn">create my quiz</button>
+    <button class="btn secondary" id="playBtn">play a friend's quiz</button>
+  </div>
+</section>
+<section id="create" class="page"><button class="back" data-go="home">‹</button><div class="card center"><h1>what's your <span>name</span>?</h1><p>Enter your name to create your quiz.</p><input id="creator" class="field" maxlength="20" placeholder="name..."><div id="cc" class="count">0/20</div><button class="btn primary" id="make">continue ➜</button></div></section>
+<section id="join" class="page"><button class="back" data-go="home">‹</button><div class="card center"><h1>open your friend's <span>quiz</span></h1><p>Paste the quiz link your friend sent you.</p><input id="link" class="field" placeholder="paste quiz link..."><button class="btn primary" id="open">open quiz ➜</button></div></section>
+<section id="name" class="page"><button class="back" data-go="home">‹</button><div class="card center"><h1>what's your <span>name</span>?</h1><p id="whose">Let's see how well you know your friend.</p><input id="player" class="field" maxlength="15" placeholder="name..."><div id="pc" class="count">0/15</div><button class="btn primary" id="start">start quiz ➜</button></div></section>
+<section id="quiz" class="page"><button class="back" data-go="name">‹</button><div class="qbox"><div id="nums" class="nums"></div><img id="qd" class="qdoodle" src="https://block.youtest.me/static/assets/img/doodles/doodle-10.svg"><div class="tag">Question <span id="qn">1</span></div><div id="question" class="question"></div><div id="opts" class="options"></div><button id="next" class="btn primary" disabled>continue ➜</button></div></section>
+<section id="results" class="page"><div class="results"><img class="qdoodle" src="https://block.youtest.me/static/assets/img/doodles/doodle-10.svg"><h2>results</h2><div id="played"></div><div id="ranking"></div><button class="btn primary" id="share">share quiz</button><button class="btn primary" id="createFromResult">create my quiz</button><button class="btn secondary" data-go="home">back home</button></div></section>
+<div class="foot">Made with ❤️ by <b>Adarsh Maurya</b><br><a href="https://www.instagram.com/adarsh_maury79/" target="_blank">@adarsh_maury79</a></div>
+</main><div id="toast" class="toast"></div>
+<script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore-compat.js"></script>
+<script>
+const firebaseConfig={apiKey:"AIzaSyDH7Q7bSnkZh4B0EovNdVETUcBM5aOnN28",authDomain:"friend-s-aura.firebaseapp.com",projectId:"friend-s-aura",storageBucket:"friend-s-aura.firebasestorage.app",messagingSenderId:"73941315527",appId:"1:73941315527:web:51e857e37f9ce0413573e2"};
+firebase.initializeApp(firebaseConfig);
+const db=firebase.firestore();
+const Q=[
+['what does NAME spend most of his money on?',['Tech / accessories','Going out with friends'],['https://images.unsplash.com/photo-1761322667465-272f507c3673?auto=format&fit=crop&w=700&q=85','https://images.unsplash.com/photo-1772203120950-a02082958489?auto=format&fit=crop&w=700&q=85']],
+['what would NAME choose for a free day?',['Staying at home','Going out'],['https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=700&q=85','https://images.unsplash.com/photo-1500534623283-312aade485b7?auto=format&fit=crop&w=700&q=85']],
+['what makes NAME happiest?',['Food','Friends'],['https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?auto=format&fit=crop&w=700&q=85','https://images.unsplash.com/photo-1529156069898-49953e39b3ac?auto=format&fit=crop&w=700&q=85']],
+['where would NAME rather go?',['Beach','Mountains'],['https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=700&q=85','https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=700&q=85']],
+['what does NAME enjoy more?',['Movies','Music'],['https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?auto=format&fit=crop&w=700&q=85','https://images.unsplash.com/photo-1492684223066-81342ee5ff30?auto=format&fit=crop&w=700&q=85']],
+['what would NAME buy first?',['New phone','New clothes'],['https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?auto=format&fit=crop&w=700&q=85','https://images.unsplash.com/photo-1445205170230-053b83016050?auto=format&fit=crop&w=700&q=85']],
+['what kind of trip does NAME prefer?',['Adventure','Relaxing'],['https://images.unsplash.com/photo-1551632811-561732d1e306?auto=format&fit=crop&w=700&q=85','https://images.unsplash.com/photo-1500534623283-312aade485b7?auto=format&fit=crop&w=700&q=85']],
+['what is more likely for NAME?',['Gaming','Sleeping'],['https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&fit=crop&w=700&q=85','https://images.unsplash.com/photo-1516715094483-75da7dee9758?auto=format&fit=crop&w=700&q=85']],
+['what would NAME pick to eat?',['Pizza','Burger'],['https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?auto=format&fit=crop&w=700&q=85','https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&fit=crop&w=700&q=85']],
+['who does NAME trust most?',['Best friend','Family'],['https://images.unsplash.com/photo-1529156069898-49953e39b3ac?auto=format&fit=crop&w=700&q=85','https://images.unsplash.com/photo-1511895426328-dc8714191300?auto=format&fit=crop&w=700&q=85']]
+];
+let creator='',player='',i=0,sel=-1,answers=[],shareURL=location.href,quizId='';
+const $=x=>document.getElementById(x);function go(id){document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));$(id).classList.add('active');scrollTo(0,0)}
+function toast(t){$('toast').textContent=t;$('toast').classList.add('show');setTimeout(()=>$('toast').classList.remove('show'),1500)}
+function esc(s){return String(s).replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]))}
+document.querySelectorAll('[data-go]').forEach(b=>b.onclick=()=>go(b.dataset.go));
+$('createBtn').onclick=()=>go('create');$('playBtn').onclick=()=>go('join');$('creator').oninput=()=>$('cc').textContent=$('creator').value.length+'/20';$('player').oninput=()=>$('pc').textContent=$('player').value.length+'/15';
+$('make').onclick=async()=>{creator=$('creator').value.trim();if(!creator)return toast('Enter your name');try{const ref=await db.collection('quizzes').add({creator:creator,createdAt:firebase.firestore.FieldValue.serverTimestamp()});quizId=ref.id;shareURL=location.href.split('?')[0]+'?quiz='+encodeURIComponent(quizId);if(navigator.share)await navigator.share({title:"Friend's Aura",text:'Play my quiz and see your score!',url:shareURL});else{await navigator.clipboard.writeText(shareURL);toast('Quiz link copied')}}catch(e){console.error(e);toast('Could not create quiz')}};
+$('open').onclick=async()=>{let raw=$('link').value.trim();if(!raw)return toast('Paste a quiz link');try{let u=new URL(raw);let id=u.searchParams.get('quiz');if(!id)throw 0;const snap=await db.collection('quizzes').doc(id).get();if(!snap.exists)throw 0;quizId=id;creator=snap.data().creator||'Friend';shareURL=raw;$('whose').textContent='How well do you know '+esc(creator)+'?';go('name')}catch(e){console.error(e);toast('Please paste a valid quiz link')}};
+$('start').onclick=()=>{player=$('player').value.trim();if(!player)return toast('Enter your name');i=0;answers=[];go('quiz');render()};
+function render(){let q=Q[i];sel=-1;$('qn').textContent=i+1;$('nums').innerHTML=Q.map((_,n)=>`<button class="num ${n===i?'active':''}">${n+1}</button>`).join('');$('qd').src='https://block.youtest.me/static/assets/img/doodles/doodle-'+(10+i%7)+'.svg';$('question').innerHTML=q[0].replace('NAME','<b>'+esc(creator)+'</b>');$('opts').innerHTML=q[1].map((t,n)=>`<button class="opt" data-i="${n}"><img src="${q[2][n]}"><span>${esc(t)}</span><i class="tick">✓</i></button>`).join('');$('next').disabled=true;document.querySelectorAll('.opt').forEach(b=>b.onclick=()=>{sel=+b.dataset.i;document.querySelectorAll('.opt').forEach(x=>x.classList.remove('selected'));b.classList.add('selected');$('next').disabled=false})}
+$('next').onclick=()=>{answers.push(sel);i++;if(i<Q.length)render();else finish()};
+async function finish(){let score=answers.filter(x=>x===0).length;try{await db.collection('quizzes').doc(quizId).collection('results').add({name:player,score:score,total:10,createdAt:firebase.firestore.FieldValue.serverTimestamp()});const snap=await db.collection('quizzes').doc(quizId).collection('results').orderBy('score','desc').limit(50).get();const a=snap.docs.map((d,n)=>({id:d.id,...d.data(),avatar:['🐰','🦌','🐼','🦊','🐱'][n%5]})).sort((x,y)=>y.score-x.score||(x.createdAt?.seconds||0)-(y.createdAt?.seconds||0));$('played').textContent=a.length+' friends played';$('ranking').innerHTML=a.map((r,n)=>`<div class="rank"><div class="medal">${['🥇','🥈','🥉'][n]||'⭐'}</div><div class="ava">${r.avatar}</div><div class="ri"><div class="rn">${esc(r.name)}</div><div class="barbg"><div class="bar" style="width:${r.score*10}%"></div></div></div><div class="score">${r.score}/10</div></div>`).join('');go('results')}catch(e){console.error(e);toast('Score save failed')}}
+$('share').onclick=async()=>{try{if(navigator.share)await navigator.share({title:"Don't Block Me",text:'Can you beat my score?',url:shareURL});else{await navigator.clipboard.writeText(shareURL);toast('Link copied')}}catch(e){}};
+$('createFromResult').onclick=()=>{creator='';$('creator').value='';$('cc').textContent='0/20';go('create')};
+$('sound').onclick=()=>toast('Sound');
+async function openSharedQuiz(){let id='';try{id=new URLSearchParams(location.search).get('quiz')||''}catch(e){}if(id){try{const snap=await db.collection('quizzes').doc(id).get();if(!snap.exists)return;quizId=id;creator=snap.data().creator||'Friend';shareURL=location.href;$('whose').textContent='How well do you know '+esc(creator)+'?';go('name')}catch(e){console.error(e);toast('Quiz could not load')}}}openSharedQuiz();
+</script>
+</body></html>
